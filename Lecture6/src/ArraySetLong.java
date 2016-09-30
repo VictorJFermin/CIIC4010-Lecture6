@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class ArraySetLong {
 	private long[] theElements;
@@ -103,14 +104,33 @@ public class ArraySetLong {
 	}
 
 	public boolean isMember(long key) {
-		boolean found = false;
-		int i = 0;
-		while (!found && i<numElements) {
+		for (int i=0; i<numElements; i++) {
 			if (theElements[i] == key) {
-				found = true;
+				return true;
 			}
-			i++;
 		}
-		return found;
+		return false;
+	}
+
+	public void addMember(long key) {
+		if (!isMember(key)) {
+			if (theElements.length <= numElements) {
+				theElements = Arrays.copyOf(theElements, numElements * 2);
+			}
+			theElements[numElements] = key;
+			numElements++;
+		}
+	}
+	
+	public void deleteMember(long key) {
+		if (isMember(key)) {
+			for (int i=0; i<numElements; i++) {
+				if (theElements[i] == key) {
+					theElements[i] = theElements[numElements-1];
+					numElements--;
+					return;
+				}
+			}
+		}
 	}
 }

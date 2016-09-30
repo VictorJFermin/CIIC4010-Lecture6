@@ -41,5 +41,19 @@ public class ArraySetLongTest {
 	public void testIsMember() {
 		assertTrue("isMember(): Did not find set member", s.isMember(5));
 		assertFalse("isMember(): Found non-existant member", s.isMember(6));
+		assertFalse("isMember(): Number found in empty set", emptySet.isMember(6));
 	}
+	
+	@Test
+	public void testAddMember() {
+		s.addMember(6);
+		assertTrue("isMember(): Did not find added set member", s.isMember(6));
+	}
+	
+	@Test
+	public void testDeleteMember() {
+		s.deleteMember(5);
+		assertFalse("isMember(): Found a delete element", s.isMember(5));
+	}
+
 }
