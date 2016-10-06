@@ -5,6 +5,9 @@ public class ArraySetLongTest {
 	
 	long[] a = {1,2,3,4,5};
 	ArraySetLong s = new ArraySetLong(a, 5);
+	long[] b = {6,7,8,9,10};
+	ArraySetLong s2 = new ArraySetLong(b, 5);
+	
 	ArraySetLong emptySet = new ArraySetLong(10);
 
 	@Test
@@ -54,6 +57,32 @@ public class ArraySetLongTest {
 	public void testDeleteMember() {
 		s.deleteMember(5);
 		assertFalse("isMember(): Found a delete element", s.isMember(5));
+	}
+
+	@Test
+	public void testUnion() {
+		ArraySetLong result = s.union(s2);
+		assertEquals("testUnion: Wrong cardinality", result.cardinality(), 10);
+		ArraySetLong result2 = s.union(s);
+		assertEquals("testUnion: Wrong cardinality", result2.cardinality(), 5);
+		ArraySetLong result3 = emptySet.union(emptySet);
+		assertEquals("testUnion: Wrong cardinality", result3.cardinality(), 0);
+	}
+
+	@Test
+	public void testIntersection() {
+		ArraySetLong result = s.intersection(emptySet);
+		assertEquals("testIntersection: Wrong cardinality", result.cardinality(), 0);
+	}
+	
+	@Test
+	public void testSubset() {
+		assertTrue("testIsSubset: subset incorrectly false", s.isSubset(s));
+	}
+	
+	@Test
+	public void testEquals() {
+		assertTrue("testEquals: equals incorrectly false", s.equals(s));
 	}
 
 }

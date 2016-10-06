@@ -121,7 +121,7 @@ public class ArraySetLong {
 			numElements++;
 		}
 	}
-	
+
 	public void deleteMember(long key) {
 		if (isMember(key)) {
 			for (int i=0; i<numElements; i++) {
@@ -132,5 +132,42 @@ public class ArraySetLong {
 				}
 			}
 		}
+	}
+
+	public ArraySetLong union(ArraySetLong s) {
+		int resultSize = 2 * Math.max(this.cardinality()+s.cardinality(),10);
+		ArraySetLong result = new ArraySetLong(resultSize);
+		for(int i=0; i<this.cardinality(); i++) {
+			result.addMember(this.theElements[i]);
+		}
+		for(int i=0; i<s.cardinality(); i++) {
+			result.addMember(s.theElements[i]);
+		}
+		return result;
+	}
+
+	public ArraySetLong intersection(ArraySetLong s) {
+		int resultSize = 2 * Math.max(this.cardinality(), s.cardinality());
+		ArraySetLong result = new ArraySetLong(resultSize);
+		for(int i=0; i<this.cardinality(); i++) {
+			if (s.isMember(this.theElements[i])) {
+				result.addMember(this.theElements[i]);
+			}
+		}
+		return result;
+	}
+
+	public boolean isSubset(ArraySetLong s) {
+
+		for(int i=0; i<this.cardinality(); i++) {
+			if (!s.isMember(this.theElements[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean equals(ArraySetLong s) {
+		return ((this.isSubset(s))&&(s.isSubset(this)));
 	}
 }
