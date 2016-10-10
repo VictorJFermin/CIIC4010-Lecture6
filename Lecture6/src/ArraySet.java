@@ -4,7 +4,7 @@ public class ArraySet {
 	private ElementType[] theElements;
 	private int numElements;
 
-	/*
+	/*//
 	 * ArraySet(int n)
 	 * Create and initially empty set with initial capacity for n objects
 	 */
